@@ -1,0 +1,6 @@
+name: MSME Demo Assistant
+display_name: MSME Scheme Assistant
+language: en
+supported_languages: [en, hi]
+primary_color: "#1a56db"
+support_email: support@msme-demo.gov.in

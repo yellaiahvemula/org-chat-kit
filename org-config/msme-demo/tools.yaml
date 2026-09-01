@@ -1,0 +1,12 @@
+enabled_tools:
+  - search_knowledge_base
+  - get_business_registration_status
+  - create_support_ticket
+retrieval:
+  top_k: 5
+  min_confidence: 0.65
+  hybrid_search: true
+guardrails:
+  block_pii: true
+  require_citation: true
+  escalate_on_low_confidence: true

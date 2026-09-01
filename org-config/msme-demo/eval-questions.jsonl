@@ -1,0 +1,5 @@
+{"question": "What is UDYAM registration?", "expected_topics": ["udyam", "registration"]}
+{"question": "What is the PMEGP scheme?", "expected_topics": ["pmegp", "subsidy"]}
+{"question": "What is the maximum loan under MUDRA?", "expected_topics": ["mudra", "10 lakh"]}
+{"question": "What documents are needed for UDYAM?", "expected_topics": ["aadhaar", "pan", "documents"]}
+{"question": "What is the turnover limit for micro enterprise?", "expected_topics": ["micro", "5 crore"]}

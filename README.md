@@ -22,6 +22,8 @@ pip install -r requirements.txt
 # 2. Local LLM (recommended for learning)
 cp .env.ollama.example .env
 chmod +x scripts/setup-ollama.sh && ./scripts/setup-ollama.sh
+./scripts/start-ollama.sh   # start background service
+./scripts/stop-ollama.sh    # stop when not needed
 
 # 3. Ingest documents
 export PYTHONPATH=python

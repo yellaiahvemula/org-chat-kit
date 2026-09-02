@@ -8,3 +8,4 @@ __pycache__/
 data/
 eval-results-*.json
 .streamlit/secrets.toml
+openapi-mcp-wrapper/

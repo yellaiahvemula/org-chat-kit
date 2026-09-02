@@ -56,6 +56,12 @@ org-config/
 scripts/          deploy, ollama setup, DB init
 ```
 
+## Vision & Core Idea
+
+Personal project direction: **AI Agent + MCP framework that integrates via department APIs (not databases).**
+
+Read the full analysis and roadmap: **[docs/VISION.md](docs/VISION.md)**
+
 ## Learning Path
 
 1. **Python basics** — run the CLI commands above

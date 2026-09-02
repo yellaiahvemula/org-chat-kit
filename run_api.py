@@ -2,6 +2,10 @@
 """Run API server."""
 import sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from app.api import main
-main()
+
+ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT))
+
+if __name__ == "__main__":
+    from app.api import main
+    main()

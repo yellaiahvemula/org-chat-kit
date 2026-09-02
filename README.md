@@ -64,6 +64,12 @@ Read the full analysis and roadmap: **[docs/VISION.md](docs/VISION.md)**
 
 ## Learning Path
 
+**New to Python, Ollama, RAG, FastAPI?** Start here:
+
+**[docs/LEARNING.md](docs/LEARNING.md)** — ordered guide from Python basics → Ollama → RAG → Agents → FastAPI → MCP/connectors.
+
+Quick reference once you're set up:
+
 1. **Python basics** — run the CLI commands above
 2. **RAG** — read `python/rag/`, try ingest + query
 3. **Agents** — read `python/agent/tools.py`, test tool calls

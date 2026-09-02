@@ -203,7 +203,7 @@ Personal learning and delivery choice: **Python only** for AI layer (TS skills r
 | LLM | OpenAI or Ollama (local) | `python/shared/llm.py` |
 | API | FastAPI | `app/api.py` |
 | UI (learning/demos) | Streamlit | `app/streamlit_ui.py` |
-| MCP connectors | Python or TypeScript MCP SDK | `mcp-connectors/` (future) |
+| MCP connectors | **FastMCP** OpenAPI wrapper — separate repo | [openapi-mcp-wrapper](https://github.com/yellaiahvemula/openapi-mcp-wrapper) |
 | Config per org | YAML + markdown + documents | `org-config/<org-id>/` |
 
 Repository: [github.com/yellaiahvemula/org-chat-kit](https://github.com/yellaiahvemula/org-chat-kit)
@@ -231,11 +231,13 @@ Repository: [github.com/yellaiahvemula/org-chat-kit](https://github.com/yellaiah
 - [x] Ollama local LLM support
 - [x] MSME demo org config
 
-### Phase B — MCP connectors
-- [ ] Connector spec document
-- [ ] First real MCP server wrapping mock dept API
-- [ ] Agent loads tools from MCP dynamically
-- [ ] Second org template (e.g. labour department)
+### Phase B — MCP connectors (via openapi-mcp-wrapper)
+- [x] Architecture doc — [OPENAPI-MCP-WRAPPER.md](OPENAPI-MCP-WRAPPER.md)
+- [x] Phase 1 POC repo — `FastMCP.from_openapi()` with Petstore demo
+- [ ] Connect openapi-mcp-wrapper to org-chat-kit agent (replace mock tools)
+- [ ] Phase 2: semantic tool filtering for large OpenAPI specs
+- [ ] Phase 3: pass-through auth (user JWT → dept API)
+- [ ] Second org connector config (real or realistic dept API)
 
 ### Phase C — Production patterns
 - [ ] Postgres audit logs (immutable)
@@ -249,7 +251,8 @@ Repository: [github.com/yellaiahvemula/org-chat-kit](https://github.com/yellaiah
 - [ ] Hindi / regional language eval set
 
 ### Phase E — Framework product
-- [ ] `mcp-connectors` package with code generator from OpenAPI spec
+- [x] OpenAPI → MCP auto-generator (`FastMCP.from_openapi` in openapi-mcp-wrapper)
+- [ ] Phase 2 tool filtering + Phase 4 admin portal
 - [ ] Connector marketplace pattern (install per dept)
 - [ ] Documentation for third-party connector authors
 
@@ -258,7 +261,7 @@ Repository: [github.com/yellaiahvemula/org-chat-kit](https://github.com/yellaiah
 ## Open Questions (For Future Deep Dives)
 
 1. **MCP vs native Python tools** — when to use MCP vs in-process `@tool` for same deployment?  
-2. **OpenAPI → MCP generator** — auto-generate tools from department Swagger specs?  
+2. **OpenAPI → MCP generator** — ✅ `FastMCP.from_openapi()` in [openapi-mcp-wrapper](https://github.com/yellaiahvemula/openapi-mcp-wrapper); Phase 2 filtering TBD  
 3. **Agent framework** — stay custom vs adopt Agno / LangGraph for production?  
 4. **WhatsApp / SMS channel** — webhook architecture for MSME outreach?  
 5. **NIC / India stack** — specific gateways and compliance (MeitY, CERT-In)?  
@@ -272,7 +275,9 @@ Repository: [github.com/yellaiahvemula/org-chat-kit](https://github.com/yellaiah
 | Document | Purpose |
 |----------|---------|
 | [README.md](../README.md) | Quick start and project structure |
-| [local-llm-guide.md](local-llm-guide.md) | Ollama setup (when added) |
+| [LEARNING.md](LEARNING.md) | Tech stack learning path |
+| [OPENAPI-MCP-WRAPPER.md](OPENAPI-MCP-WRAPPER.md) | OpenAPI-to-MCP connector architecture |
+| [openapi-mcp-wrapper repo](https://github.com/yellaiahvemula/openapi-mcp-wrapper) | Phase 1 POC codebase |
 | `org-config/msme-demo/` | Example org deployment |
 
 ---

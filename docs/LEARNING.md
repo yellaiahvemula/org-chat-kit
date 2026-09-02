@@ -316,50 +316,41 @@ def chat(req: ChatRequest):     # req: ChatRequest = typed body
 
 ## Phase 6: MCP & Connectors (Week 9+)
 
-**Only start this after Phases 1–5.** This is your [VISION](VISION.md) endgame.
+**Only start this after Phases 1–5.**
+
+Full connector roadmap: **[OPENAPI-MCP-WRAPPER.md](OPENAPI-MCP-WRAPPER.md)**  
+Code repo: **[openapi-mcp-wrapper](https://github.com/yellaiahvemula/openapi-mcp-wrapper)**
 
 ### 6.1 What is a connector?
 
-A **connector** = code that wraps one department API as one or more **tools** the agent can call.
+A **connector** wraps a department API as agent **tools**. With the OpenAPI wrapper, tools are **auto-generated** from `openapi.json` via `FastMCP.from_openapi()` — no hand-coding each endpoint.
 
-```
-Department API:  GET /api/v1/udyam/{id}/status
-                        ↓
-Connector tool:  get_udyam_status(registration_number: str)
-                        ↓
-Agent:           "User asked about UDYAM-MH-01-0001234" → calls tool → speaks result
-```
+### 6.2 First exercise
 
-Today in the repo, `get_business_registration_status` in `tools.py` is a **mock connector**. Later it becomes a real HTTP call.
-
-### 6.2 What is MCP?
-
-**MCP (Model Context Protocol)** = standard way to package connectors so any AI app can use them.
-
-Instead of hardcoding tools in `tools.py`, you run an **MCP server** per department:
-
-```
-Agent → MCP Client → MCP Server (labour-dept) → Labour Dept REST API
-                  → MCP Server (msme)        → MSME Portal API
+```bash
+git clone https://github.com/yellaiahvemula/openapi-mcp-wrapper.git
+cd openapi-mcp-wrapper
+pip install -r requirements.txt
+python server.py --example petstore
 ```
 
-**Why MCP:** Reusable across Cursor, your agent, future products. One connector, many hosts.
+Connect from Cursor `.cursor/mcp.json` (see openapi-mcp-wrapper README).
 
-### 6.3 Learning order for connectors
+### 6.3 Learning order
 
-1. Replace mock in `tools.py` with real `httpx.get("https://api...")`  
-2. Learn MCP Python SDK — expose same function as MCP tool  
-3. Define connector config YAML (base URL, auth, tool list)  
-4. Read [VISION.md](VISION.md) Phase B roadmap  
+1. Run Petstore POC — verify MCP tools are auto-generated  
+2. Read `server.py` and `examples/petstore.yaml`  
+3. Replace one mock tool in org-chat-kit with MCP connector  
+4. Read [OPENAPI-MCP-WRAPPER.md](OPENAPI-MCP-WRAPPER.md) Phases 2–4  
 
-### 6.4 Connector concepts (preview)
+### 6.4 Connector concepts
 
 | Concept | Meaning |
 |---------|---------|
-| **Tool** | One callable function (search, status, create ticket) |
-| **Auth plugin** | API key, OAuth2 — stored in secrets, not in prompts |
-| **Adapter** | Maps messy dept API response → clean tool response |
-| **Audit** | Log every API call for govt compliance |
+| **OpenAPI wrapper** | `FastMCP.from_openapi()` — auto-generate tools from spec |
+| **Tool filtering** | Phase 2 — semantic search when 50+ endpoints |
+| **Pass-through auth** | Phase 3 — user's JWT forwarded to dept API |
+| **RouteMap** | Exclude DELETE, login paths from exposed tools |
 
 ---
 
@@ -376,7 +367,7 @@ Agent → MCP Client → MCP Server (labour-dept) → Labour Dept REST API
 | 7 | Streamlit UI | You ran chat in browser |
 | 8 | FastAPI + `/docs` | You called API with curl and Swagger |
 | 9+ | Mock → real HTTP tool | One tool calls a real public API |
-| 10+ | MCP intro | Read MCP spec; one MCP tool working |
+| 10+ | OpenAPI MCP wrapper | Petstore POC running; connected in Cursor |
 
 ---
 
@@ -398,9 +389,11 @@ Agent → MCP Client → MCP Server (labour-dept) → Labour Dept REST API
 - [fastapi.tiangolo.com/tutorial](https://fastapi.tiangolo.com/tutorial/) — first 5 sections  
 - Your `app/api.py` side-by-side with tutorial  
 
-### MCP
-- [modelcontextprotocol.io](https://modelcontextprotocol.io) — read after Phase 5  
-- [VISION.md](VISION.md) — your project's connector direction  
+### MCP & OpenAPI wrapper
+- [FastMCP OpenAPI docs](https://gofastmcp.com/integrations/openapi)  
+- [openapi-mcp-wrapper](https://github.com/yellaiahvemula/openapi-mcp-wrapper) — your Phase 1 POC  
+- [OPENAPI-MCP-WRAPPER.md](OPENAPI-MCP-WRAPPER.md) — architecture and roadmap  
+- [VISION.md](VISION.md) — overall product vision  
 
 ---
 
@@ -433,4 +426,4 @@ When all checked — you're ready to build your first real connector.
 
 ---
 
-*Next doc to read after completing Phase 5: [VISION.md](VISION.md)*
+*After Phase 5: [VISION.md](VISION.md) → [OPENAPI-MCP-WRAPPER.md](OPENAPI-MCP-WRAPPER.md)*

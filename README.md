@@ -62,6 +62,8 @@ Personal project direction: **AI Agent + MCP framework that integrates via depar
 
 Read the full analysis and roadmap: **[docs/VISION.md](docs/VISION.md)**
 
+OpenAPI-to-MCP connector project: **[docs/OPENAPI-MCP-WRAPPER.md](docs/OPENAPI-MCP-WRAPPER.md)** → [openapi-mcp-wrapper](https://github.com/yellaiahvemula/openapi-mcp-wrapper)
+
 ## Learning Path
 
 **New to Python, Ollama, RAG, FastAPI?** Start here:

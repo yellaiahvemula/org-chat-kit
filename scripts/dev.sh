@@ -13,7 +13,7 @@ if [[ -x "$ROOT/.venv/bin/python" ]]; then
   source "$ROOT/.venv/bin/activate"
 fi
 
-export PYTHONPATH="$ROOT/python"
+export PYTHONPATH="$ROOT/packages/chat-core"
 
 echo "==> Starting Ollama"
 "$ROOT/scripts/start-ollama.sh"
@@ -63,4 +63,4 @@ done
 echo "==> Starting Nx React UI on http://localhost:4200"
 echo "    API: http://localhost:${API_PORT}/docs"
 echo "    Ctrl+C stops API + UI (Ollama keeps running)"
-npx nx serve web --host=localhost --port=4200
+npx nx serve chat-webapp --host=localhost --port=4200

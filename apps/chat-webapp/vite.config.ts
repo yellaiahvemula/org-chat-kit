@@ -5,7 +5,7 @@ import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 
 export default defineConfig({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/apps/web',
+  cacheDir: '../../node_modules/.vite/apps/chat-webapp',
   server: {
     port: 4200,
     host: 'localhost',
@@ -20,7 +20,7 @@ export default defineConfig({
   },
   plugins: [react(), nxViteTsPaths()],
   build: {
-    outDir: '../../dist/apps/web',
+    outDir: '../../dist/apps/chat-webapp',
     emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: { transformMixedEsModules: true },

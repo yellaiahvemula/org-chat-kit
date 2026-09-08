@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
-import { addExpense, listCategories, type Category } from '@org-chat-kit/api-client';
+import { addExpense, listCategories, type Category } from '@org-chat-kit/chat-api-client';
 
 type Props = {
   onSaved?: (message: string) => void;

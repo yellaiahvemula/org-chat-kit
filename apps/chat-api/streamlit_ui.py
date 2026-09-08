@@ -8,7 +8,7 @@ from pathlib import Path
 
 import streamlit as st
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "python"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "packages" / "chat-core"))
 
 from agent.agent import run_agent
 from household.expense_writer import CATEGORY_LABELS, append_expense

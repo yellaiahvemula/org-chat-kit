@@ -1,4 +1,4 @@
-import type { LlmStatus } from '@org-chat-kit/api-client';
+import type { LlmStatus } from '@org-chat-kit/chat-api-client';
 
 type Props = {
   status: LlmStatus | null;

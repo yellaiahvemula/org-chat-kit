@@ -15,8 +15,8 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import BaseModel
 
-# Add python/ to path
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "python"))
+# Add chat-core package to path
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "packages" / "chat-core"))
 
 from agent.agent import run_agent
 from household.expense_writer import CATEGORY_LABELS, append_expense
@@ -162,7 +162,8 @@ def add_household_expense(req: ExpenseRequest):
 def main():
     import uvicorn
     port = int(os.environ.get("API_PORT", "8000"))
-    uvicorn.run("app.api:app", host="0.0.0.0", port=port, reload=True)
+    # reload import string resolves against this file's directory
+    uvicorn.run("api:app", host="0.0.0.0", port=port, reload=True, app_dir=str(Path(__file__).resolve().parent))
 
 
 if __name__ == "__main__":

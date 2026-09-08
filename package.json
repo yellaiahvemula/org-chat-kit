@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nx serve web",
-    "web": "nx serve web",
-    "build": "nx build web",
+    "start": "nx serve chat-webapp",
+    "web": "nx serve chat-webapp",
+    "build": "nx build chat-webapp",
     "lint": "nx run-many -t lint --all",
     "format": "prettier --write \"{apps,libs}/**/*.{ts,tsx,css,json,html,mjs}\" \"*.{json,mjs,yml,yaml}\" \".github/**/*.{yml,yaml}\" \".prettierrc\"",
     "format:check": "prettier --check \"{apps,libs}/**/*.{ts,tsx,css,json,html,mjs}\" \"*.{json,mjs,yml,yaml}\" \".github/**/*.{yml,yaml}\" \".prettierrc\""

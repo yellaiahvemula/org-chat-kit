@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@org-chat-kit/api-client": ["libs/api-client/src/index.ts"],
-      "@org-chat-kit/ui": ["libs/ui/src/index.ts"]
+      "@org-chat-kit/chat-api-client": ["libs/chat-api-client/src/index.ts"],
+      "@org-chat-kit/chat-ui": ["libs/chat-ui/src/index.ts"]
     },
     "jsx": "react-jsx",
     "strict": true,

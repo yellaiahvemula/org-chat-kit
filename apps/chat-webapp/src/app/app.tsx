@@ -7,8 +7,8 @@ import {
   type Branding,
   type ChatMessage,
   type LlmStatus,
-} from '@org-chat-kit/api-client';
-import { Chat, ExpenseForm, LlmStatusPanel } from '@org-chat-kit/ui';
+} from '@org-chat-kit/chat-api-client';
+import { Chat, ExpenseForm, LlmStatusPanel } from '@org-chat-kit/chat-ui';
 
 type Tab = 'chat' | 'expense';
 

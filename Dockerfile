@@ -3,6 +3,6 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-ENV PYTHONPATH=/app/python
+ENV PYTHONPATH=/app/packages/chat-core
 EXPOSE 8000 8501
 CMD ["python", "run_api.py"]

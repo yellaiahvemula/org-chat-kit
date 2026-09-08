@@ -2,7 +2,7 @@
 set -euo pipefail
 ORG_ID="${1:-msme-demo}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-export PYTHONPATH="$ROOT/python"
+export PYTHONPATH="$ROOT/packages/chat-core"
 
 echo "=== Deploying $ORG_ID ==="
 pip3 install -q -r "$ROOT/requirements.txt"

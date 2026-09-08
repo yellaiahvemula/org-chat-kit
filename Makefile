@@ -5,7 +5,7 @@ ORG ?= household
 PYTHON ?= $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; else echo python3; fi)
 export PYTHONPATH := python
 
-.PHONY: help install install-web setup-ollama start-ollama stop-ollama ingest ui ui-streamlit api web start ask
+.PHONY: help install install-web setup-ollama start-ollama stop-ollama ingest ui ui-streamlit api web start ask lint format format-check build
 
 help:
 	@echo "Available commands (like package.json scripts):"
@@ -18,6 +18,10 @@ help:
 	@echo "  make ingest        Ingest org documents (ORG=household)"
 	@echo "  make api           FastAPI only (:8000)"
 	@echo "  make web           Nx React UI only (:4200)"
+	@echo "  make lint          ESLint for apps/libs"
+	@echo "  make format        Prettier write"
+	@echo "  make format-check  Prettier check"
+	@echo "  make build         Production build of web app"
 	@echo "  make ui-streamlit  Legacy Streamlit UI"
 	@echo "  make ask Q='...'   One-shot agent question"
 
@@ -50,6 +54,18 @@ api:
 
 web:
 	npx nx serve web
+
+lint:
+	npm run lint
+
+format:
+	npm run format
+
+format-check:
+	npm run format:check
+
+build:
+	npm run build
 
 start:
 	./scripts/dev.sh $(ORG)

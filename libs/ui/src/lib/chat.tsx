@@ -11,7 +11,9 @@ export function Chat({ messages, busy, onSend }: ChatProps) {
     <div className="chat">
       <div className="chat-messages">
         {messages.length === 0 && (
-          <p className="muted">Ask about your documents. For household, add data via Add expense first.</p>
+          <p className="muted">
+            Ask about your documents. For household, add data via Add expense first.
+          </p>
         )}
         {messages.map((msg, i) => (
           <div key={i} className={`bubble bubble-${msg.role}`}>
@@ -19,7 +21,9 @@ export function Chat({ messages, busy, onSend }: ChatProps) {
             {msg.role === 'assistant' && (msg.tools?.length || msg.confidence != null) && (
               <div className="bubble-meta">
                 Tools: {(msg.tools ?? []).join(', ') || 'none'}
-                {msg.confidence != null ? ` | Confidence: ${Math.round(msg.confidence * 100)}%` : ''}
+                {msg.confidence != null
+                  ? ` | Confidence: ${Math.round(msg.confidence * 100)}%`
+                  : ''}
               </div>
             )}
           </div>
@@ -38,7 +42,12 @@ export function Chat({ messages, busy, onSend }: ChatProps) {
           onSend(text);
         }}
       >
-        <input name="message" placeholder="Type your question…" disabled={busy} autoComplete="off" />
+        <input
+          name="message"
+          placeholder="Type your question…"
+          disabled={busy}
+          autoComplete="off"
+        />
         <button type="submit" disabled={busy}>
           Send
         </button>

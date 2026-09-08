@@ -5,14 +5,14 @@ services:
       POSTGRES_USER: orgchat
       POSTGRES_PASSWORD: orgchat
       POSTGRES_DB: orgchat
-    ports: ["5432:5432"]
+    ports: ['5432:5432']
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
 
   api:
     build: .
-    ports: ["8000:8000"]
+    ports: ['8000:8000']
     environment:
       DATABASE_URL: postgresql://orgchat:orgchat@postgres:5432/orgchat
       LLM_PROVIDER: ${LLM_PROVIDER:-ollama}

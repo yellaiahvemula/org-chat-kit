@@ -4,5 +4,12 @@
   "sourceRoot": "libs/ui/src",
   "projectType": "library",
   "tags": ["scope:shared", "type:ui"],
-  "targets": {}
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "lintFilePatterns": ["libs/ui/**/*.{ts,tsx}"]
+      }
+    }
+  }
 }

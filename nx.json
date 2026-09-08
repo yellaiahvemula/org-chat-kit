@@ -10,6 +10,9 @@
       "dependsOn": ["^build"],
       "cache": true
     },
+    "lint": {
+      "cache": true
+    },
     "serve": {
       "cache": false
     }

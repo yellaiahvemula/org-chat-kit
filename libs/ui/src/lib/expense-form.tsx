@@ -13,31 +13,42 @@ function monthIso() {
   return new Date().toISOString().slice(0, 7);
 }
 
+function defaultFields(category: string): Record<string, string> {
+  const next: Record<string, string> = {};
+  for (const f of fieldsForCategory(category)) {
+    next[f.key] = f.defaultValue;
+  }
+  return next;
+}
+
 export function ExpenseForm({ onSaved }: Props) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [category, setCategory] = useState('home_loan');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [fields, setFields] = useState<Record<string, string>>({});
+  const [fields, setFields] = useState<Record<string, string>>(() => defaultFields('home_loan'));
 
   useEffect(() => {
+    let cancelled = false;
     listCategories()
       .then((r) => {
+        if (cancelled) return;
         setCategories(r.categories);
-        if (r.categories[0]) setCategory(r.categories[0].id);
       })
-      .catch((e: Error) => setError(e.message));
+      .catch((e: Error) => {
+        if (!cancelled) setError(e.message);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const fieldDefs = useMemo(() => fieldsForCategory(category), [category]);
 
-  useEffect(() => {
-    const next: Record<string, string> = {};
-    for (const f of fieldsForCategory(category)) {
-      next[f.key] = f.defaultValue;
-    }
-    setFields(next);
-  }, [category]);
+  function selectCategory(nextCategory: string) {
+    setCategory(nextCategory);
+    setFields(defaultFields(nextCategory));
+  }
 
   async function submit(e: FormEvent) {
     e.preventDefault();
@@ -63,10 +74,12 @@ export function ExpenseForm({ onSaved }: Props) {
 
   return (
     <form className="expense-form" onSubmit={submit}>
-      <p className="muted">Writes a row into the matching markdown file, then re-ingests for RAG.</p>
+      <p className="muted">
+        Writes a row into the matching markdown file, then re-ingests for RAG.
+      </p>
       <label>
         Category
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <select value={category} onChange={(e) => selectCategory(e.target.value)}>
           {categories.map((c) => (
             <option key={c.id} value={c.id}>
               {c.label}
@@ -129,7 +142,13 @@ function fieldsForCategory(category: string): FieldDef[] {
         { key: 'card', label: 'Card label', type: 'text', defaultValue: 'Card A (1234)' },
         { key: 'amount', label: 'Statement amount (INR)', type: 'number', defaultValue: '0' },
         { key: 'minimum_due', label: 'Minimum due', type: 'text', defaultValue: '' },
-        { key: 'paid', label: 'Paid?', type: 'select', defaultValue: 'Pending', options: ['Pending', 'Paid'] },
+        {
+          key: 'paid',
+          label: 'Paid?',
+          type: 'select',
+          defaultValue: 'Pending',
+          options: ['Pending', 'Paid'],
+        },
         { key: 'notes', label: 'Notes', type: 'text', defaultValue: '' },
       ];
     case 'gas':
@@ -137,7 +156,13 @@ function fieldsForCategory(category: string): FieldDef[] {
         { key: 'month', label: 'Month (YYYY-MM)', type: 'text', defaultValue: monthIso() },
         { key: 'amount', label: 'Amount (INR)', type: 'number', defaultValue: '0' },
         { key: 'due_date', label: 'Due date (YYYY-MM-DD)', type: 'text', defaultValue: '' },
-        { key: 'paid', label: 'Paid?', type: 'select', defaultValue: 'Pending', options: ['Pending', 'Paid'] },
+        {
+          key: 'paid',
+          label: 'Paid?',
+          type: 'select',
+          defaultValue: 'Pending',
+          options: ['Pending', 'Paid'],
+        },
         { key: 'provider', label: 'Provider', type: 'text', defaultValue: '' },
         { key: 'notes', label: 'Notes', type: 'text', defaultValue: '' },
       ];
@@ -147,7 +172,13 @@ function fieldsForCategory(category: string): FieldDef[] {
         { key: 'units', label: 'Units', type: 'number', defaultValue: '0' },
         { key: 'amount', label: 'Amount (INR)', type: 'number', defaultValue: '0' },
         { key: 'due_date', label: 'Due date (YYYY-MM-DD)', type: 'text', defaultValue: '' },
-        { key: 'paid', label: 'Paid?', type: 'select', defaultValue: 'Pending', options: ['Pending', 'Paid'] },
+        {
+          key: 'paid',
+          label: 'Paid?',
+          type: 'select',
+          defaultValue: 'Pending',
+          options: ['Pending', 'Paid'],
+        },
         { key: 'provider', label: 'Provider', type: 'text', defaultValue: '' },
         { key: 'notes', label: 'Notes', type: 'text', defaultValue: '' },
       ];
@@ -162,7 +193,13 @@ function fieldsForCategory(category: string): FieldDef[] {
     case 'petrol':
       return [
         { key: 'date', label: 'Date (YYYY-MM-DD)', type: 'text', defaultValue: todayIso() },
-        { key: 'vehicle', label: 'Vehicle', type: 'select', defaultValue: 'Car', options: ['Car', 'Bike'] },
+        {
+          key: 'vehicle',
+          label: 'Vehicle',
+          type: 'select',
+          defaultValue: 'Car',
+          options: ['Car', 'Bike'],
+        },
         { key: 'litres', label: 'Litres', type: 'number', defaultValue: '0' },
         { key: 'amount', label: 'Amount (INR)', type: 'number', defaultValue: '0' },
         { key: 'notes', label: 'Notes', type: 'text', defaultValue: '' },

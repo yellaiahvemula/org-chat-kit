@@ -127,7 +127,11 @@ export function App() {
         <header className="main-header">
           <h2 style={{ color: primary }}>{branding?.display_name ?? 'Assistant'}</h2>
           <nav className="tabs">
-            <button type="button" className={tab === 'chat' ? 'active' : ''} onClick={() => setTab('chat')}>
+            <button
+              type="button"
+              className={tab === 'chat' ? 'active' : ''}
+              onClick={() => setTab('chat')}
+            >
               Chat
             </button>
             {showExpense && (

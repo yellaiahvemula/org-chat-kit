@@ -1,0 +1,6 @@
+name: Household Expense Assistant
+display_name: Home Budget Assistant
+language: en
+supported_languages: [en, hi]
+primary_color: "#0f766e"
+support_email: you@home.local

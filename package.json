@@ -1,0 +1,26 @@
+{
+  "name": "@org-chat-kit/source",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nx serve web",
+    "build": "nx build web",
+    "web": "nx serve web"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@nx/js": "^21.0.0",
+    "@nx/react": "^21.0.0",
+    "@nx/vite": "^21.0.0",
+    "@nx/workspace": "^21.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "nx": "^21.0.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.0.0"
+  }
+}

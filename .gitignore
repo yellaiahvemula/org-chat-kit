@@ -9,3 +9,7 @@ data/
 eval-results-*.json
 .streamlit/secrets.toml
 openapi-mcp-wrapper/
+node_modules/
+.nx/
+dist/
+apps/web/dist/

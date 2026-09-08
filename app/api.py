@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 import os
 import sys
 from datetime import datetime, timedelta, timezone
@@ -20,7 +19,10 @@ from pydantic import BaseModel
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "python"))
 
 from agent.agent import run_agent
-from shared.config import ROOT_DIR, get_org_config_dir, list_orgs, load_branding
+from household.expense_writer import CATEGORY_LABELS, append_expense
+from rag.ingest import ingest_org
+from shared.config import get_org_config_dir, list_orgs, load_branding
+from shared.llm import check_setup
 
 app = FastAPI(title="Org Chat Kit", version="1.0.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -54,6 +56,13 @@ class ChatResponse(BaseModel):
     confidence: float
     escalated: bool
     tools_used: list[str]
+
+
+class ExpenseRequest(BaseModel):
+    category: str
+    data: dict
+    reingest: bool = True
+    org_id: str = "household"
 
 
 def create_token(email: str, org_id: str, role: str) -> str:
@@ -121,6 +130,33 @@ def audit(org_id: str = "msme-demo", user: Optional[dict] = Depends(get_current_
         raise HTTPException(403, "Officer access required")
     logs = [l for l in _audit_log if l["org_id"] == org_id][-50:]
     return {"logs": logs}
+
+
+@app.get("/api/llm/status")
+def llm_status():
+    return check_setup()
+
+
+@app.get("/api/household/categories")
+def household_categories():
+    return {"categories": [{"id": k, "label": v} for k, v in CATEGORY_LABELS.items()]}
+
+
+@app.post("/api/household/expenses")
+def add_household_expense(req: ExpenseRequest):
+    if req.org_id != "household":
+        raise HTTPException(400, "Expense form supports only the household org")
+    try:
+        path = append_expense(req.org_id, req.category, req.data)
+    except ValueError as e:
+        raise HTTPException(400, str(e)) from e
+    except FileNotFoundError as e:
+        raise HTTPException(404, str(e)) from e
+
+    chunks = None
+    if req.reingest:
+        chunks = ingest_org(req.org_id, clear_existing=True)
+    return {"ok": True, "file": path.name, "chunks": chunks}
 
 
 def main():

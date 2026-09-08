@@ -1,0 +1,12 @@
+.venv
+node_modules
+data
+dist
+.nx
+**/__pycache__
+**/.pytest_cache
+org-config
+python
+app
+scripts
+docs

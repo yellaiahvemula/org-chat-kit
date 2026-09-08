@@ -3,7 +3,7 @@
 
 ORG ?= household
 PYTHON ?= $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; else echo python3; fi)
-export PYTHONPATH := python
+export PYTHONPATH := packages/chat-core
 
 .PHONY: help install install-web setup-ollama start-ollama stop-ollama ingest ui ui-streamlit api web start ask lint format format-check build
 
@@ -16,12 +16,12 @@ help:
 	@echo "  make start-ollama  Start Ollama only"
 	@echo "  make stop-ollama   Stop Ollama"
 	@echo "  make ingest        Ingest org documents (ORG=household)"
-	@echo "  make api           FastAPI only (:8000)"
-	@echo "  make web           Nx React UI only (:4200)"
+	@echo "  make api           FastAPI chat-api only (:8000)"
+	@echo "  make web           Nx chat-webapp only (:4200)"
 	@echo "  make lint          ESLint for apps/libs"
 	@echo "  make format        Prettier write"
 	@echo "  make format-check  Prettier check"
-	@echo "  make build         Production build of web app"
+	@echo "  make build         Production build of chat-webapp"
 	@echo "  make ui-streamlit  Legacy Streamlit UI"
 	@echo "  make ask Q='...'   One-shot agent question"
 
@@ -53,7 +53,7 @@ api:
 	$(PYTHON) run_api.py
 
 web:
-	npx nx serve web
+	npx nx serve chat-webapp
 
 lint:
 	npm run lint

@@ -6,7 +6,7 @@ dist
 **/__pycache__
 **/.pytest_cache
 org-config
-python
-app
+packages
+apps/chat-api
 scripts
 docs

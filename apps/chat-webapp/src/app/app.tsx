@@ -7,8 +7,8 @@ import {
   type Branding,
   type ChatMessage,
   type LlmStatus,
-} from '@org-chat-kit/api-client';
-import { Chat, ExpenseForm, LlmStatusPanel } from '@org-chat-kit/ui';
+} from '@org-chat-kit/chat-api-client';
+import { Chat, ExpenseForm, LlmStatusPanel } from '@org-chat-kit/chat-ui';
 
 type Tab = 'chat' | 'expense';
 
@@ -127,7 +127,11 @@ export function App() {
         <header className="main-header">
           <h2 style={{ color: primary }}>{branding?.display_name ?? 'Assistant'}</h2>
           <nav className="tabs">
-            <button type="button" className={tab === 'chat' ? 'active' : ''} onClick={() => setTab('chat')}>
+            <button
+              type="button"
+              className={tab === 'chat' ? 'active' : ''}
+              onClick={() => setTab('chat')}
+            >
               Chat
             </button>
             {showExpense && (

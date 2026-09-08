@@ -1,14 +1,14 @@
 {
-  "name": "api-client",
+  "name": "chat-ui",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/api-client/src",
+  "sourceRoot": "libs/chat-ui/src",
   "projectType": "library",
-  "tags": ["scope:shared", "type:data-access"],
+  "tags": ["scope:chat", "type:ui"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": ["libs/api-client/**/*.{ts,tsx}"]
+        "lintFilePatterns": ["libs/chat-ui/**/*.{ts,tsx}"]
       }
     }
   }

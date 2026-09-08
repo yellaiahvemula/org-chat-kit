@@ -1,4 +1,4 @@
-import type { ChatMessage } from '@org-chat-kit/api-client';
+import type { ChatMessage } from '@org-chat-kit/chat-api-client';
 
 type ChatProps = {
   messages: ChatMessage[];

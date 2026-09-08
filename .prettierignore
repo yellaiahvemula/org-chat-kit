@@ -5,7 +5,7 @@ coverage
 package-lock.json
 *.md
 org-config
-python
-app
+packages
+apps/chat-api
 scripts
 data

@@ -1,15 +1,15 @@
 # Org Chat Kit (Python)
 
-A **Python-only** learning and delivery kit for building org-specific conversational AI — for government departments and MSMEs. Includes RAG, agents, FastAPI, Streamlit, and local LLM support via Ollama.
+A learning and delivery kit for org-specific conversational AI — RAG, agents, FastAPI, Nx React UI, and local LLM support via Ollama.
 
-## Stack (100% Python)
+## Stack
 
 | Layer | Tool |
 |-------|------|
-| RAG | `python/rag/` — ingest, query, citations |
-| Agent | `python/agent/` — tools, guardrails, ReAct loop |
-| API | **FastAPI** — `app/api.py` |
-| UI | **Streamlit** — `app/streamlit_ui.py` |
+| RAG | `packages/chat-core/rag/` — ingest, query, citations |
+| Agent | `packages/chat-core/agent/` — tools, guardrails, ReAct loop |
+| API | **FastAPI** — `apps/chat-api/` |
+| UI | **Nx React** — `apps/chat-webapp/` (Streamlit still available) |
 | Local LLM | **Ollama** — no API key needed |
 | Vector store | pgvector or local JSON |
 
@@ -18,6 +18,7 @@ A **Python-only** learning and delivery kit for building org-specific conversati
 ```bash
 # 1. Install dependencies
 pip install -r requirements.txt
+npm install
 
 # 2. Local LLM (recommended for learning)
 cp .env.ollama.example .env
@@ -26,34 +27,32 @@ chmod +x scripts/setup-ollama.sh && ./scripts/setup-ollama.sh
 ./scripts/stop-ollama.sh    # stop when not needed
 
 # 3. Ingest documents
-export PYTHONPATH=python
+export PYTHONPATH=packages/chat-core
 python -m rag.ingest --org msme-demo
 
 # 4. CLI query
 python -m rag.query --org msme-demo "What is UDYAM registration?"
 python -m agent.run --org msme-demo "What is PMEGP?"
 
-# 5. Streamlit chat UI
-python run_ui.py
-
-# 6. FastAPI (optional)
-python run_api.py
-# → http://localhost:8000/docs
+# 5. One command: Ollama + API + React UI
+make start ORG=household
+# → http://localhost:4200  (React)
+# → http://localhost:8000/docs  (API)
 ```
 
 ## Project Structure
 
 ```
-python/
-  shared/     config, LLM client, embeddings, vector store
-  rag/        chunking, ingest, query
-  agent/      tools, ReAct agent
-app/
-  api.py          FastAPI server
-  streamlit_ui.py Chat UI
-org-config/
-  msme-demo/      branding, prompts, documents, eval set
-scripts/          deploy, ollama setup, DB init
+apps/
+  chat-webapp/          Nx React chat UI
+  chat-api/             FastAPI + legacy Streamlit
+libs/
+  chat-api-client/      Typed HTTP client for the API
+  chat-ui/              Shared React chat/expense components
+packages/
+  chat-core/            Agent, RAG, shared LLM/embeddings, household helpers
+org-config/             Per-org branding, prompts, documents
+scripts/                Ollama, deploy, DB init
 ```
 
 ## Vision & Core Idea

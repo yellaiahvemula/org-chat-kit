@@ -13,3 +13,4 @@ node_modules/
 .nx/
 dist/
 apps/web/dist/
+apps/chat-webapp/dist/

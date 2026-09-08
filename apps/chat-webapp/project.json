@@ -1,20 +1,20 @@
 {
-  "name": "web",
+  "name": "chat-webapp",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/web/src",
+  "sourceRoot": "apps/chat-webapp/src",
   "projectType": "application",
-  "tags": ["scope:web", "type:app"],
+  "tags": ["scope:chat", "type:app"],
   "targets": {
     "serve": {
       "executor": "@nx/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "web:build",
+        "buildTarget": "chat-webapp:build",
         "port": 4200
       },
       "configurations": {
         "development": {
-          "buildTarget": "web:build:development",
+          "buildTarget": "chat-webapp:build:development",
           "hmr": true
         }
       }
@@ -24,7 +24,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/web"
+        "outputPath": "dist/apps/chat-webapp"
       },
       "configurations": {
         "development": {
@@ -39,13 +39,13 @@
       "executor": "@nx/vite:preview-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "web:build"
+        "buildTarget": "chat-webapp:build"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": ["apps/web/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/chat-webapp/**/*.{ts,tsx,js,jsx}"]
       }
     }
   }

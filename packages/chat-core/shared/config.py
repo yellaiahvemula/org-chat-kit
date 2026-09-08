@@ -11,7 +11,7 @@ from typing import Any
 import yaml
 from dotenv import load_dotenv
 
-ROOT_DIR = Path(__file__).resolve().parents[2]
+ROOT_DIR = Path(__file__).resolve().parents[3]
 ORG_CONFIG_DIR = ROOT_DIR / "org-config"
 
 load_dotenv(ROOT_DIR / ".env")
